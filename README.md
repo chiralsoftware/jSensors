@@ -2,6 +2,9 @@
 ![](https://img.shields.io/github/license/profesorfalken/jSensors.svg)
 ![](https://travis-ci.org/profesorfalken/jSensors.svg)
 
+# Chiral Software fork - removed slf4j
+jSensors includes a dependendy on slf4j, which makes it not work with Spring Boot. The only way to get jSensor to work with Spring Boot is to exlcude logback-classic within the spring-boot-starter-web artefact, but then you lose all your application's log messages. 
+
 # jSensors
 Monitorize all the hardware sensors of your PC using Java
 
