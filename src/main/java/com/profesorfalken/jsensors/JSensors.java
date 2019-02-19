@@ -20,12 +20,11 @@ import java.util.Map;
 
 import com.profesorfalken.jsensors.manager.windows.powershell.PowerShellOperations;
 import com.profesorfalken.jsensors.util.OSDetector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.profesorfalken.jsensors.model.components.Components;
 import com.profesorfalken.jsensors.standalone.ConsoleOutput;
 import com.profesorfalken.jsensors.standalone.GuiOutput;
+import java.util.logging.Logger;
 
 /**
  * Main class of JSensors. <br>
@@ -39,8 +38,8 @@ import com.profesorfalken.jsensors.standalone.GuiOutput;
 public enum JSensors {
 
 	get;
+    private static final Logger LOG = Logger.getLogger(JSensors.class.getName());
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(JSensors.class);
 
 	final Map<String, String> baseConfig;
 
@@ -52,7 +51,7 @@ public enum JSensors {
 
 	private static void checkRights() {
 		if (OSDetector.isWindows() && !PowerShellOperations.isAdministrator()) {
-			LOGGER.warn("You have not executed jSensors in Administrator mode, so CPU temperature sensors will not be detected.");
+			LOG.warning("You have not executed jSensors in Administrator mode, so CPU temperature sensors will not be detected.");
 		}
 	}
 
@@ -76,10 +75,8 @@ public enum JSensors {
 
 		// Override values
 		for (final Map.Entry<String, String> entry : config.entrySet()) {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug(String.format("Overriding config entry %s, %s by %s", entry.getKey(),
+				LOG.fine(String.format("Overriding config entry %s, %s by %s", entry.getKey(),
 						this.usedConfig.get(entry.getKey()), entry.getValue()));
-			}
 			this.usedConfig.put(entry.getKey(), entry.getValue());
 		}
 

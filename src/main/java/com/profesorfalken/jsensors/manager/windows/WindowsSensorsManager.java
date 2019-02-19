@@ -17,8 +17,7 @@ package com.profesorfalken.jsensors.manager.windows;
 
 import com.profesorfalken.jsensors.manager.SensorsManager;
 import com.profesorfalken.jsensors.manager.windows.powershell.PowerShellOperations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 /**
  * MS Windows implementation of SensorManager that gets the sensors using a
@@ -28,7 +27,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WindowsSensorsManager extends SensorsManager {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WindowsSensorsManager.class);
+    private static final Logger LOG = Logger.getLogger(WindowsSensorsManager.class.getName());
 
     private static final String LINE_BREAK = "\r\n";
     
@@ -40,12 +39,12 @@ public class WindowsSensorsManager extends SensorsManager {
         String rawSensorsData = PowerShellOperations.GET.getRawSensorsData();
 
         if (debugMode) {
-            LOGGER.info("RawSensorData: " + rawSensorsData);
+            LOG.info("RawSensorData: " + rawSensorsData);
         }
 
         String normalizedSensorsData = normalizeSensorsData(rawSensorsData);
         if (debugMode) {
-            LOGGER.info("NormalizeSensorData: " + normalizedSensorsData);
+            LOG.info("NormalizeSensorData: " + normalizedSensorsData);
         }
 
         return normalizedSensorsData;

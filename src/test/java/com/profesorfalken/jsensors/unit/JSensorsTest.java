@@ -29,21 +29,21 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author javier
  */
 public class JSensorsTest {
-	Logger logger = LoggerFactory.getLogger(JSensorsTest.class);
+
+    private static final Logger LOG = Logger.getLogger(JSensorsTest.class.getName());
 
 	private static final String TESTSET_DIR = "testsets/normalized/";
 
@@ -66,7 +66,6 @@ public class JSensorsTest {
 
 	@Before
 	public void setUp() {
-		System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
 	}
 
 	@After
@@ -103,7 +102,7 @@ public class JSensorsTest {
 	 */
 	@Test
 	public void testCpu() throws Exception {
-		logger.info("Testing CPU sensors");
+		LOG.info("Testing CPU sensors");
 
 		for (final String testset : TESTSET_LIST) {
 			// Get CPU component
@@ -116,7 +115,7 @@ public class JSensorsTest {
 			assertNotNull("Cannot recover CPU data", cpu);
 
 			assertNotNull("No CPU name", cpu.name);
-			logger.info("CPU name: " + cpu.name);
+			LOG.info("CPU name: " + cpu.name);
 
 			// Test temperature sensors (in C)
 			for (final Temperature temp : cpu.sensors.temperatures) {
@@ -124,7 +123,7 @@ public class JSensorsTest {
 				assertNotNull("Temperature value should not be null", temp.value);
 				assertTrue("Temperature value should be greater than 0, but was " + temp.value, temp.value > 0);
 				assertTrue("Temperature value should be lower than 120, but was " + temp.value, temp.value < 120);
-				logger.info("Temperature: " + temp.value);
+				LOG.info("Temperature: " + temp.value);
 			}
 
 			// Test Fan speed sensors (in RPM)
@@ -133,7 +132,7 @@ public class JSensorsTest {
 				assertNotNull("Fan RPM should not be null", fan.value);
 				assertTrue("Fan RPM should be greater than 0, but was " + fan.value, fan.value > 0);
 				assertTrue("Fan RPM value should be lower than 5000, but was " + fan.value, fan.value < 5000);
-				logger.info("Fan RPM: " + fan.value);
+				LOG.info("Fan RPM: " + fan.value);
 			}
 		}
 	}
@@ -145,7 +144,7 @@ public class JSensorsTest {
 	 */
 	@Test
 	public void testGpu() throws Exception {
-		logger.info("Testing GPU sensors");
+		LOG.info("Testing GPU sensors");
 
 		for (final String testset : TESTSET_LIST) {
 			// Get CPU component
@@ -158,7 +157,7 @@ public class JSensorsTest {
 			assertNotNull("Cannot recover GPU data", gpu);
 
 			assertNotNull("No GPU name", gpu.name);
-			logger.info("GPU name: " + gpu.name);
+			LOG.info("GPU name: " + gpu.name);
 
 			// Test temperature sensors (in C)
 			for (final Temperature temp : gpu.sensors.temperatures) {
@@ -166,7 +165,7 @@ public class JSensorsTest {
 				assertNotNull("Temperature value should not be null", temp.value);
 				assertTrue("Temperature value should be greater than 0, but was " + temp.value, temp.value > 0);
 				assertTrue("Temperature value should be lower than 120, but was " + temp.value, temp.value < 120);
-				logger.info("Temperature: " + temp.value);
+				LOG.info("Temperature: " + temp.value);
 			}
 
 			// Test Fan speed sensors (in RPM)
@@ -175,7 +174,7 @@ public class JSensorsTest {
 				assertNotNull("Fan RPM should not be null", fan.value);
 				assertTrue("Fan RPM should be greater than 0, but was " + fan.value, fan.value > 0);
 				assertTrue("Fan RPM value should be lower than 5000, but was " + fan.value, fan.value < 5000);
-				logger.info("Fan RPM: " + fan.value);
+				LOG.info("Fan RPM: " + fan.value);
 			}
 		}
 	}
@@ -187,7 +186,7 @@ public class JSensorsTest {
 	 */
 	@Test
 	public void testDisk() throws Exception {
-		logger.info("Testing CPU sensors");
+		LOG.info("Testing CPU sensors");
 
 		for (final String testset : TESTSET_LIST) {
 			// Get Disk component
@@ -200,7 +199,7 @@ public class JSensorsTest {
 			assertNotNull("Cannot recover Disk data", disk);
 
 			assertNotNull("No Disk name", disk.name);
-			logger.info("Disk name: " + disk.name);
+			LOG.info("Disk name: " + disk.name);
 
 			// Test temperature sensors (in C)
 			for (final Temperature temp : disk.sensors.temperatures) {
@@ -208,7 +207,7 @@ public class JSensorsTest {
 				assertNotNull("Temperature value should not be null", temp.value);
 				assertTrue("Temperature value should be greater than 0, but was " + temp.value, temp.value > 0);
 				assertTrue("Temperature value should be lower than 120, but was " + temp.value, temp.value < 120);
-				logger.info("Temperature: " + temp.value);
+				LOG.info("Temperature: " + temp.value);
 			}
 
 			// Test Fan speed sensors (in RPM)
@@ -217,7 +216,7 @@ public class JSensorsTest {
 				assertNotNull("Fan RPM should not be null", fan.value);
 				assertTrue("Fan RPM should be greater than 0, but was " + fan.value, fan.value > 0);
 				assertTrue("Fan RPM value should be lower than 5000, but was " + fan.value, fan.value < 5000);
-				logger.info("Fan RPM: " + fan.value);
+				LOG.info("Fan RPM: " + fan.value);
 			}
 		}
 	}

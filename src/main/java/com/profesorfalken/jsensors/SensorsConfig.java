@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.util.logging.Level.SEVERE;
+import java.util.logging.Logger;
 
 /**
  * Utility class that reads the content of the configuration file and convert it
@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  */
 final class SensorsConfig {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(SensorsConfig.class);
+    private static final Logger LOG = Logger.getLogger(SensorsConfig.class.getName());
 
 	private static final String CONFIG_FILENAME = "jsensors.properties";
 
@@ -47,7 +47,7 @@ final class SensorsConfig {
 				// load a properties file from class path, inside static method
 				config.load(SensorsConfig.class.getClassLoader().getResourceAsStream(CONFIG_FILENAME));
 			} catch (IOException ex) {
-				LOGGER.error("Cannot load config file " + CONFIG_FILENAME, ex);
+				LOG.log(SEVERE, "Cannot load config file " + CONFIG_FILENAME, ex);
 			}
 		}
 

@@ -20,15 +20,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.util.logging.Level.SEVERE;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Javier Garcia Alonso
  */
 class PowerShellScriptHelper {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PowerShellOperations.class);
+
+    private static final Logger LOG = Logger.getLogger(PowerShellScriptHelper.class.getName());
 
 	private static final String LINE_BREAK = "\r\n";
 
@@ -107,7 +108,7 @@ class PowerShellScriptHelper {
 				writer.flush();
 				writer.close();
 			} catch (Exception ex) {
-				LOGGER.error("Cannot create PowerShell script file", ex);
+				LOG.log(SEVERE,"Cannot create PowerShell script file", ex);
 				return "Error";
 			} finally {
 				try {
@@ -115,7 +116,7 @@ class PowerShellScriptHelper {
 						writer.close();
 					}
 				} catch (IOException ioe) {
-					LOGGER.warn("Error when finish writing Powershell script file", ioe);
+					LOG.log(SEVERE,"Error when finish writing Powershell script file", ioe);
 				}
 			}
 		}

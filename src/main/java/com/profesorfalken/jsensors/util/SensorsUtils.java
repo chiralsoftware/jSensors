@@ -15,20 +15,20 @@
  */
 package com.profesorfalken.jsensors.util;
 
-import com.profesorfalken.jsensors.manager.windows.powershell.PowerShellOperations;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.util.logging.Level.SEVERE;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Javier Garcia Alonso
  */
 public class SensorsUtils {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PowerShellOperations.class);
+
+    private static final Logger LOG = Logger.getLogger(SensorsUtils.class.getName());
 
 	private static File tempFile = null;
 
@@ -56,7 +56,7 @@ public class SensorsUtils {
                 fos.close();
                 in.close();
             } catch (IOException ex) {
-                LOGGER.error("Cannot generate temporary file", ex);
+                LOG.log(SEVERE,"Cannot generate temporary file", ex);
                 return "";
             }
         }

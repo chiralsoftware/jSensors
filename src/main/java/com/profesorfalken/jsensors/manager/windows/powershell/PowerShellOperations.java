@@ -17,8 +17,6 @@ package com.profesorfalken.jsensors.manager.windows.powershell;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellNotAvailableException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -27,7 +25,6 @@ import org.slf4j.LoggerFactory;
 public enum PowerShellOperations {
 	GET;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PowerShellOperations.class);
 
 	private PowerShell powerShell = null;
 

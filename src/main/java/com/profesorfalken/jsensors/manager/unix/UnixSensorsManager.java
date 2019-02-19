@@ -27,8 +27,8 @@ import com.sun.jna.ptr.IntByReference;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.util.logging.Level.SEVERE;
+import java.util.logging.Logger;
 
 /**
  * Linux implementation of SensorManager that gets the sensors using JNA and
@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  */
 public class UnixSensorsManager extends SensorsManager {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(UnixSensorsManager.class);
+    private static final Logger LOG = Logger.getLogger(UnixSensorsManager.class.getName());
 
 	private static final String LINE_BREAK = "\n";
 
@@ -50,13 +50,13 @@ public class UnixSensorsManager extends SensorsManager {
 		CSensors cSensors = loadDynamicLibrary();
 
 		if (cSensors == null) {
-			LOGGER.error("Could not load sensors dynamic library");
+			LOG.severe("Could not load sensors dynamic library");
 			return "";
 		}
 
 		int init = initCSensors(cSensors);
 		if (init != 0) {
-			LOGGER.error("Cannot initialize sensors");
+			LOG.severe("Cannot initialize sensors");
 			return "";
 		}
 
@@ -76,14 +76,14 @@ public class UnixSensorsManager extends SensorsManager {
 		try {
 			jnaProxy = Native.loadLibrary("sensors", CSensors.class);
 		} catch (UnsatisfiedLinkError err) {
-			LOGGER.info("Cannot find library in system, using embedded one");
+			LOG.info("Cannot find library in system, using embedded one");
 			try {
 				String libPath = SensorsUtils.generateLibTmpPath("/lib/linux/", "libsensors.so.4.4.0");
 				jnaProxy = Native.loadLibrary(libPath, CSensors.class);
 				new File(libPath).delete();
 			} catch (UnsatisfiedLinkError err1) {
 				jnaProxy = null;
-				LOGGER.error("Cannot load sensors dinamic library", err1);
+				LOG.log(SEVERE, "Cannot load sensors dinamic library", err1);
 			}
 		}
 
@@ -145,9 +145,7 @@ public class UnixSensorsManager extends SensorsManager {
 			addFeatures(cSensors, chip, features);
 		}
 
-		if (debugMode) {
-			LOGGER.info(sensorsDebugData.toString());
-		}
+			LOG.fine(sensorsDebugData.toString());
 
 		return sensorsData.toString();
 	}
